@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.2.4</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>com.study</groupId>
+	<artifactId>backend</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>backend</name>
+	<description>Demo project for Spring Boot</description>
+	<properties>
+		<java.version>17</java.version>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jdbc</artifactId>
+			<version>3.2.4</version>
+		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>org.springframework.boot</groupId>-->
+<!--			<artifactId>spring-boot-starter-data-jpa</artifactId>-->
+<!--			<version>3.2.4</version>-->
+<!--		</dependency>-->
+
+		<dependency>
+			<groupId>com.oracle.database.jdbc</groupId>
+			<artifactId>ojdbc8</artifactId>
+			<version>21.9.0.0</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.querydsl</groupId>
+			<artifactId>querydsl-sql</artifactId>
+			<version>5.0.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.querydsl</groupId>
+			<artifactId>querydsl-sql-spring</artifactId>
+			<version>5.0.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.querydsl</groupId>
+			<artifactId>querydsl-sql-codegen</artifactId>
+			<version>5.0.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.oracle.database.jdbc</groupId>
+			<artifactId>ucp</artifactId>
+			<version>21.9.0.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+			<version>3.2.4</version>
+<!--			<exclusions>-->
+<!--				<exclusion>-->
+<!--					<groupId>org.springframework.boot</groupId>-->
+<!--					<artifactId>spring-boot-starter-tomcat</artifactId>-->
+<!--				</exclusion>-->
+<!--			</exclusions>-->
+		</dependency>
+
+<!--		<dependency>-->
+<!--			<groupId>org.springframework.boot</groupId>-->
+<!--			<artifactId>spring-boot-starter-jetty</artifactId>-->
+<!--			<version>2.7.17</version>-->
+<!--		</dependency>-->
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-logging</artifactId>
+			<version>2.7.17</version>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-maven-plugin</artifactId>
+				<version>9.18.0</version>
+
+				<configuration>
+					<url>jdbc:oracle:thin:@192.168.1.23:1522/MEMSTEST</url>
+					<user>STUDY</user>
+					<password>qwerty123</password>
+					<schemas>
+						<schema>STUDY</schema>
+					</schemas>
+					<locations>
+						<location>filesystem:./migrations</location>
+					</locations>
+					<cleanDisabled>false</cleanDisabled>
+				</configuration>
+
+				<dependencies>
+					<dependency>
+						<groupId>com.oracle.database.jdbc</groupId>
+							<artifactId>ojdbc8</artifactId>
+						<version>21.9.0.0</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+
+			<plugin>
+				<groupId>com.querydsl</groupId>
+				<artifactId>querydsl-maven-plugin</artifactId>
+				<version>5.0.0</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>export</goal>
+						</goals>
+					</execution>
+				</executions>
+
+				<configuration>
+					<jdbcDriver>oracle.jdbc.OracleDriver</jdbcDriver>
+					<jdbcUrl>jdbc:oracle:thin:@192.168.1.23:1522/MEMSTEST</jdbcUrl>
+					<jdbcUser>STUDY</jdbcUser>
+					<jdbcPassword>qwerty123</jdbcPassword>
+					<packageName>com.study.demo.querydsl.entities</packageName>
+					<targetFolder>${project.basedir}/target/generated-DataSourceConfig/java</targetFolder>
+					<exportForeignKeys>false</exportForeignKeys>
+					<exportDirectForeignKeys>false</exportDirectForeignKeys>
+					<exportInverseForeignKeys>false</exportInverseForeignKeys>
+					<schemaPattern>STUDY</schemaPattern>
+
+					<!--                    BEFORE DEPARTMENTS-->
+					<!--                    <tableNamePattern>MANAGERS, EMPLOYEES</tableNamePattern>-->
+
+					<tableNamePattern>MANAGERS, EMPLOYEES, DEPARTMENTS</tableNamePattern>
+
+					<typeMappings>
+
+						<!--EMPLOYEES-->
+
+						<typeMapping>
+							<table>EMPLOYEES</table>
+							<column>ID_EMPLOYEE</column>
+							<type>java.lang.Long</type>
+						</typeMapping>
+						<typeMapping>
+							<table>EMPLOYEES</table>
+							<column>MT_SALARY</column>
+							<type>java.lang.Double</type>
+						</typeMapping>
+						<typeMapping>
+							<table>EMPLOYEES</table>
+							<column>FL_ACTIVE</column>
+							<type>java.lang.Boolean</type>
+						</typeMapping>
+						<typeMapping>
+							<table>EMPLOYEES</table>
+							<column>ID_MANAGER</column>
+							<type>java.lang.Long</type>
+						</typeMapping>
+						<typeMapping>
+							<table>EMPLOYEES</table>
+							<column>DT_EMPLOYMENT</column>
+							<type>java.time.LocalDateTime</type>
+						</typeMapping>
+						<typeMapping>
+							<table>EMPLOYEES</table>
+							<column>DT_RESIGNATION</column>
+							<type>java.time.LocalDateTime</type>
+						</typeMapping>
+
+						<!--MANAGERS-->
+
+						<typeMapping>
+							<table>MANAGERS</table>
+							<column>ID_MANAGER</column>
+							<type>java.lang.Long</type>
+						</typeMapping>
+
+						<!--DEPARTMENTS-->
+
+						<typeMapping>
+							<table>DEPARTMENTS</table>
+							<column>ID_DEPARTMENT</column>
+							<type>java.lang.Long</type>
+						</typeMapping>
+
+						<typeMapping>
+							<table>MANAGERS</table>
+							<column>ID_DEPARTMENT</column>
+							<type>java.lang.Long</type>
+						</typeMapping>
+
+					</typeMappings>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>com.oracle.database.jdbc</groupId>
+						<artifactId>ojdbc8</artifactId>
+						<version>21.9.0.0</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
