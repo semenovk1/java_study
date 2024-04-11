@@ -7,13 +7,9 @@ import lombok.ToString;
 @Getter
 @Builder
 @ToString
-public class Manager {
+public class Department {
 
     private Long id;
     private String name;
-    private String lastname;
 
-    // department
-    private Long departmentId;
-    //private String departmentName;
 }
