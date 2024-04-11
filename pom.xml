@@ -118,11 +118,11 @@
 				<version>9.18.0</version>
 
 				<configuration>
-					<url>jdbc:oracle:thin:@192.168.1.23:1522/MEMSTEST</url>
-					<user>STUDY</user>
-					<password>qwerty123</password>
+					<url>jdbc:oracle:thin:@95.161.178.222:45782/STUDYDB</url>
+					<user>STUDY2</user>
+					<password>123456</password>
 					<schemas>
-						<schema>STUDY</schema>
+						<schema>STUDY2</schema>
 					</schemas>
 					<locations>
 						<location>filesystem:./migrations</location>
@@ -153,15 +153,15 @@
 
 				<configuration>
 					<jdbcDriver>oracle.jdbc.OracleDriver</jdbcDriver>
-					<jdbcUrl>jdbc:oracle:thin:@192.168.1.23:1522/MEMSTEST</jdbcUrl>
-					<jdbcUser>STUDY</jdbcUser>
-					<jdbcPassword>qwerty123</jdbcPassword>
+					<jdbcUrl>jdbc:oracle:thin:@95.161.178.222:45782/STUDYDB</jdbcUrl>
+					<jdbcUser>STUDY2</jdbcUser>
+					<jdbcPassword>123456</jdbcPassword>
 					<packageName>com.study.demo.querydsl.entities</packageName>
-					<targetFolder>${project.basedir}/target/generated-DataSourceConfig/java</targetFolder>
+					<targetFolder>${project.basedir}/target/generated-sources/java</targetFolder>
 					<exportForeignKeys>false</exportForeignKeys>
 					<exportDirectForeignKeys>false</exportDirectForeignKeys>
 					<exportInverseForeignKeys>false</exportInverseForeignKeys>
-					<schemaPattern>STUDY</schemaPattern>
+					<schemaPattern>STUDY2</schemaPattern>
 
 					<!--                    BEFORE DEPARTMENTS-->
 					<!--                    <tableNamePattern>MANAGERS, EMPLOYEES</tableNamePattern>-->
@@ -226,6 +226,7 @@
 						</typeMapping>
 
 					</typeMappings>
+					<sourceFolder/>
 				</configuration>
 				<dependencies>
 					<dependency>
