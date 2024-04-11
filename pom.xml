@@ -15,6 +15,12 @@
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>17</java.version>
+<!--		Настройка соедения с БД для плагинов-->
+		<db.Url>jdbc:oracle:thin:@95.161.178.222:45782/STUDYDB</db.Url>
+		<db.User>STUDY2</db.User>
+		<db.Password>123456</db.Password>
+		<db.Schema>${db.User}</db.Schema>
+<!--		Конец настройки БД -->
 	</properties>
 	<dependencies>
 		<dependency>
@@ -118,11 +124,11 @@
 				<version>9.18.0</version>
 
 				<configuration>
-					<url>jdbc:oracle:thin:@95.161.178.222:45782/STUDYDB</url>
-					<user>STUDY2</user>
-					<password>123456</password>
+					<url>${db.Url}</url>
+					<user>${db.User}</user>
+					<password>${db.Password}</password>
 					<schemas>
-						<schema>STUDY2</schema>
+						<schema>${db.Schema}</schema>
 					</schemas>
 					<locations>
 						<location>filesystem:./migrations</location>
@@ -153,15 +159,15 @@
 
 				<configuration>
 					<jdbcDriver>oracle.jdbc.OracleDriver</jdbcDriver>
-					<jdbcUrl>jdbc:oracle:thin:@95.161.178.222:45782/STUDYDB</jdbcUrl>
-					<jdbcUser>STUDY2</jdbcUser>
-					<jdbcPassword>123456</jdbcPassword>
+					<jdbcUrl>${db.Url}</jdbcUrl>
+					<jdbcUser>${db.User}</jdbcUser>
+					<jdbcPassword>${db.Password}</jdbcPassword>
 					<packageName>com.study.demo.querydsl.entities</packageName>
 					<targetFolder>${project.basedir}/target/generated-sources/java</targetFolder>
 					<exportForeignKeys>false</exportForeignKeys>
 					<exportDirectForeignKeys>false</exportDirectForeignKeys>
 					<exportInverseForeignKeys>false</exportInverseForeignKeys>
-					<schemaPattern>STUDY2</schemaPattern>
+					<schemaPattern>${db.Schema}</schemaPattern>
 
 					<!--                    BEFORE DEPARTMENTS-->
 					<!--                    <tableNamePattern>MANAGERS, EMPLOYEES</tableNamePattern>-->

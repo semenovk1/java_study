@@ -15,5 +15,5 @@ public class Manager {
 
     // department
     private Long departmentId;
-    //private String departmentName;
+    private String departmentName;
 }

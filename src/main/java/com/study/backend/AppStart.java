@@ -28,13 +28,13 @@ public class AppStart {
         log.info("Test");
         ObjectMapper mapper = new ObjectMapper();
         List<Employee> employeeList = employeeRepository.getEmployees();
-        employeeList.stream().map(Employee::toString).forEach(e -> log.info("Value: {}", e));
+        employeeList.stream().map(Employee::toString).forEach(e -> log.info("\033[1;32m Value:\033[0m \033[0;36m{}\033[0m", e));
 
         List<Manager> managerList = managerRepository.getManagers();
-        managerList.stream().map(Manager::toString).forEach(e -> log.info("Value: {}", e));
+        managerList.stream().map(Manager::toString).forEach(e -> log.info("\033[1;32m Value:\033[0m \033[0;36m{}\033[0m", e));
 
         List<Department> depList = departmentRepository.getDepartments();
-        depList.stream().map(Department::toString).forEach(e -> log.info("Value: {}", e));
+        depList.stream().map(Department::toString).forEach(e -> log.info("\033[1;32m Value:\033[0m \033[0;36m{}\033[0m", e));
 
     }
 }
