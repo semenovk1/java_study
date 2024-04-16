@@ -17,7 +17,7 @@
 		<java.version>17</java.version>
 <!--		Настройка соедения с БД для плагинов-->
 		<db.Url>jdbc:oracle:thin:@95.161.178.222:45782/STUDYDB</db.Url>
-		<db.User>STUDY2</db.User>
+		<db.User>STUDY1</db.User>
 		<db.Password>123456</db.Password>
 		<db.Schema>${db.User}</db.Schema>
 <!--		Конец настройки БД -->

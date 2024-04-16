@@ -26,15 +26,36 @@ public class AppStart {
     @PostConstruct
     public void Init() {
         log.info("Test");
-        ObjectMapper mapper = new ObjectMapper();
-        List<Employee> employeeList = employeeRepository.getEmployees();
-        employeeList.stream().map(Employee::toString).forEach(e -> log.info("\033[1;32m Value:\033[0m \033[0;36m{}\033[0m", e));
+//        ObjectMapper mapper = new ObjectMapper();
+//        List<Employee> employeeList = employeeRepository.getEmployees();
+//        employeeList.stream().map(Employee::toString).forEach(e -> log.info("\033[1;32m Value:\033[0m \033[0;36m{}\033[0m", e));
+//
+//        List<Manager> managerList = managerRepository.getManagers();
+//        managerList.stream().map(Manager::toString).forEach(e -> log.info("\033[1;32m Value:\033[0m \033[0;36m{}\033[0m", e));
+//
+//        List<Department> depList = departmentRepository.getDepartments();
+//        depList.stream().map(Department::toString).forEach(e -> log.info("\033[1;32m Value:\033[0m \033[0;36m{}\033[0m", e));
 
-        List<Manager> managerList = managerRepository.getManagers();
-        managerList.stream().map(Manager::toString).forEach(e -> log.info("\033[1;32m Value:\033[0m \033[0;36m{}\033[0m", e));
 
-        List<Department> depList = departmentRepository.getDepartments();
-        depList.stream().map(Department::toString).forEach(e -> log.info("\033[1;32m Value:\033[0m \033[0;36m{}\033[0m", e));
+
+        //Get All With name Ivan
+        List<Employee> employeeList1 = employeeRepository.getEmployeesByFilter("Norman", null, null ,null);
+        employeeList1.stream().map(Employee::toString).forEach(e -> log.info("\033[1;32m Value:\033[0m \033[0;36m{}\033[0m", e));
+
+        //Get All With Ivan Ivanoff
+        List<Employee> employeeList2 = employeeRepository.getEmployeesByFilter("Norman", "Mccormick", null ,null);
+        employeeList2.stream().map(Employee::toString).forEach(e -> log.info("\033[1;32m Value:\033[0m \033[0;36m{}\033[0m", e));
+
+        //Get All  Ivan Ivanoff and Salary > 50000
+        List<Employee> employeeList3 = employeeRepository.getEmployeesByFilter("Norman", null, 50000D ,1);
+        employeeList3.stream().map(Employee::toString).forEach(e -> log.info("\033[1;32m Value:\033[0m \033[0;36m{}\033[0m", e));
+
+        //Get All  Ivan Ivanoff and Salary > 50000
+        List<Employee> employeeList4 = employeeRepository.getEmployeesByFilter(null, null, 20000D ,1);
+        employeeList4.stream().map(Employee::toString).forEach(e -> log.info("\033[1;32m Value:\033[0m \033[0;36m{}\033[0m", e));
+
+
+        //employeeList.stream().map(Employee::toString).forEach(e -> log.info("\033[1;32m Value:\033[0m \033[0;36m{}\033[0m", e));
 
     }
 }
