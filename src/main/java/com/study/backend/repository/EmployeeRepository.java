@@ -2,13 +2,22 @@ package com.study.backend.repository;
 
 import com.querydsl.core.Tuple;
 import com.querydsl.core.types.MappingProjection;
+import com.querydsl.core.types.Ops;
 import com.querydsl.core.types.Path;
+import com.querydsl.core.types.dsl.*;
 import com.querydsl.sql.SQLQuery;
 import com.querydsl.sql.SQLQueryFactory;
+import com.study.backend.dto.FilterDto;
+import com.study.backend.dto.FilterFieldDto;
 import com.study.backend.enity.Employee;
+import com.study.backend.enity.descriptors.EmployeeDescriptor;
+import com.study.backend.enity.descriptors.FiledDescriptor;
+import com.study.backend.filter.FilterHeper;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -22,29 +31,30 @@ public class EmployeeRepository {
 
     private final SQLQueryFactory queryFactory;
     private final MappingProjection<Employee> projection;
+    private final MappingProjection<Employee> projectionNoJoins;
 
     public EmployeeRepository(SQLQueryFactory queryFactory) {
 
         this.queryFactory = queryFactory;
 
 //         проекция без доп. поля manager
-//        projection = new MappingProjection<>(Employee.class, employees.all()) {
-//
-//            @Override
-//            protected Employee map(Tuple tuple) {
-//
-//                return Employee.builder()
-//                               .id(tuple.get(employees.idEmployee))
-//                               .name(tuple.get(employees.dsName))
-//                               .lastname(tuple.get(employees.dsLastname))
-//                               .salary(tuple.get(employees.mtSalary))
-//                               .isActive(tuple.get(employees.flActive))
-//                               .managerId(tuple.get(employees.idManager))
-//                               .employmentDate(tuple.get(employees.dtEmployment))
-//                               .resignationDate(tuple.get(employees.dtResignation))
-//                               .build();
-//            }
-//        };
+        projectionNoJoins = new MappingProjection<>(Employee.class, employees.all()) {
+
+            @Override
+            protected Employee map(Tuple tuple) {
+
+                return Employee.builder()
+                               .id(tuple.get(employees.idEmployee))
+                               .name(tuple.get(employees.dsName))
+                               .lastname(tuple.get(employees.dsLastname))
+                               .salary(tuple.get(employees.mtSalary))
+                               .isActive(tuple.get(employees.flActive))
+                               .managerId(tuple.get(employees.idManager))
+                               .employmentDate(tuple.get(employees.dtEmployment))
+                               .resignationDate(tuple.get(employees.dtResignation))
+                               .build();
+            }
+        };
 
         projection = new MappingProjection<Employee>(Employee.class, Stream.concat(Stream.of(employees.all()),
                                                                                    Stream.of(managers.dsName, managers.dsLastname))
@@ -67,22 +77,36 @@ public class EmployeeRepository {
             }
         };
     }
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+
+    public List<Employee> getEmployeesByFilter(FilterDto filter) throws Exception {
+        SQLQuery<Employee> q = queryFactory.query().select(projectionNoJoins).from(employees);
+
+        return FilterHeper.getByFilter(q, EmployeeDescriptor.fieldDescriptorMap, filter);
+    }
+    //
 
     //salaryOp < 0 - Less
     //salaryOp = 0 - Eq
     //salaryOp > 0 - Gr
-    public List<Employee> getEmployeesByFilter(String name, String lastName, Double salary, Integer salaryOp) {
+    public List<Employee> getEmployeesByFilterOld(String name, String lastName, Double salary, Integer salaryOp) {
         //name AND lastName AND salary (Less, Grater, Eql)
         SQLQuery<Employee> q = queryFactory.query().select(projection).from(employees).innerJoin(managers)
                                            .on(employees.idManager.eq(managers.idManager));
 
-        if(name != null){
-            q.where(employees.dsName.eq(name));
+        BooleanExpression se = null;
+        if (name != null) {
+            se = managers.dsName.eq(name);
+            //q.where(managers.dsName.eq(name));
         }
 
-        if(lastName != null){
-            q.where(employees.dsLastname.eq(lastName));
+        if (lastName != null) {
+
+            BooleanExpression se2 = managers.dsLastname.eq(lastName);
+            se = se != null ? se.or(se2) : se2;
         }
+        q.where(se);
 
         if(salary != null){
             if(salaryOp < 0)
