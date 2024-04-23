@@ -42,13 +42,13 @@ public class AppStart {
 
 
         //Get All With name Ivan
-        List<FilterFieldDto> fields =List.of(
-
-            FilterFieldDto.builder().name("employmentDate").predicate("Gt").value(List.of("2024-02-01 00:00")).build()
-        );
-        List<Employee> employeeList1 = employeeRepository.getEmployeesByFilter(FilterDto.builder().fields(fields).build());
-
-        employeeList1.stream().map(Employee::toString).forEach(e -> log.info("\033[1;32m Value:\033[0m \033[0;36m{}\033[0m", e));
+//        List<FilterFieldDto> fields =List.of(
+//
+//            FilterFieldDto.builder().name("employmentDate").predicate("Gt").value(List.of("2024-02-01 00:00")).build()
+//        );
+//        List<Employee> employeeList1 = employeeRepository.getEmployeesByFilter(FilterDto.builder().fields(fields).build());
+//
+//        employeeList1.stream().map(Employee::toString).forEach(e -> log.info("\033[1;32m Value:\033[0m \033[0;36m{}\033[0m", e));
 
 //        //Get All With Ivan Ivanoff
 //        List<Employee> employeeList2 = employeeRepository.getEmployeesByFilter("Norman", "Mccormick", null ,null);
