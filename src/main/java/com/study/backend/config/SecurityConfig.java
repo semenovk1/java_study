@@ -49,7 +49,7 @@ public class SecurityConfig {
 
             @Override
             public boolean matches(CharSequence rawPassword, String encodedPassword) {
-                return true;
+                return rawPassword.toString().equals(encodedPassword);
             }
         };//NoOpPasswordEncoder.getInstance();
     }

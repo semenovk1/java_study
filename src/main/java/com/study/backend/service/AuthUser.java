@@ -1,5 +1,6 @@
 package com.study.backend.service;
 
+import com.study.backend.enity.Users;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,7 +11,7 @@ import java.util.List;
 
 @AllArgsConstructor
 public class AuthUser implements UserDetails {
-    protected String username;
+    protected Users user;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of((GrantedAuthority) () -> "TEST");
@@ -18,12 +19,12 @@ public class AuthUser implements UserDetails {
 
     @Override
     public String getPassword() {
-        return "123456";
+        return user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return username;
+        return user.getDs_name();
     }
 
     @Override
