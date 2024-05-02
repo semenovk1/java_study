@@ -78,22 +78,29 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>6.1.5</version>
+		</dependency>
+
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 			<version>3.2.4</version>
-<!--			<exclusions>-->
-<!--				<exclusion>-->
-<!--					<groupId>org.springframework.boot</groupId>-->
-<!--					<artifactId>spring-boot-starter-tomcat</artifactId>-->
-<!--				</exclusion>-->
-<!--			</exclusions>-->
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-tomcat</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
-<!--		<dependency>-->
-<!--			<groupId>org.springframework.boot</groupId>-->
-<!--			<artifactId>spring-boot-starter-jetty</artifactId>-->
-<!--			<version>2.7.17</version>-->
-<!--		</dependency>-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jetty</artifactId>
+			<version>3.2.4</version>
+		</dependency>
+
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -109,7 +116,7 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
-			<version>2.7.17</version>
+			<version>3.2.4</version>
 		</dependency>
 
 	</dependencies>
@@ -183,7 +190,7 @@
 					<!--                    BEFORE DEPARTMENTS-->
 					<!--                    <tableNamePattern>MANAGERS, EMPLOYEES</tableNamePattern>-->
 
-					<tableNamePattern>MANAGERS, EMPLOYEES, DEPARTMENTS</tableNamePattern>
+					<tableNamePattern>MANAGERS, EMPLOYEES, DEPARTMENTS, USERS</tableNamePattern>
 
 					<typeMappings>
 
@@ -240,6 +247,25 @@
 							<table>MANAGERS</table>
 							<column>ID_DEPARTMENT</column>
 							<type>java.lang.Long</type>
+						</typeMapping>
+
+						<!--USERS-->
+
+						<typeMapping>
+							<table>USERS</table>
+							<column>ID_USER</column>
+							<type>java.lang.Long</type>
+						</typeMapping>
+
+						<typeMapping>
+							<table>USERS</table>
+							<column>DS_USER</column>
+							<type>java.lang.String</type>
+						</typeMapping>
+						<typeMapping>
+							<table>USERS</table>
+							<column>PASSWORD</column>
+							<type>java.lang.String</type>
 						</typeMapping>
 
 					</typeMappings>

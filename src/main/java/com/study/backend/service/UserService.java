@@ -5,14 +5,11 @@ import com.study.backend.enity.Users;
 import com.study.backend.repository.UsersRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @Slf4j
@@ -23,7 +20,7 @@ public class UserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         try {
-            List<Users> Lusers=usersRepository.getUserbylogin(username);
+            List<Users> Lusers=usersRepository.getUserByLogin(username);
             if (Lusers.isEmpty())
                 throw new UsernameNotFoundException("Пользователь не найден");
 

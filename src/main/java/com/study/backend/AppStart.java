@@ -12,6 +12,7 @@ import com.study.backend.repository.ManagerRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -28,6 +29,8 @@ public class AppStart {
 
     @PostConstruct
     public void Init() throws Exception{
+
+//        SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_GLOBAL);
         log.info("Test");
 //        ObjectMapper mapper = new ObjectMapper();
 //        List<Employee> employeeList = employeeRepository.getEmployees();
