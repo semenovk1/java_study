@@ -6,6 +6,8 @@ import com.study.backend.dto.FilterFieldDto;
 import com.study.backend.enity.Department;
 import com.study.backend.enity.Employee;
 import com.study.backend.enity.Manager;
+import com.study.backend.quartz.SchedService;
+import com.study.backend.quartz.TestJob;
 import com.study.backend.repository.DepartmentRepository;
 import com.study.backend.repository.EmployeeRepository;
 import com.study.backend.repository.ManagerRepository;
@@ -27,9 +29,14 @@ public class AppStart {
     private final ManagerRepository managerRepository;
     private final DepartmentRepository departmentRepository;
 
+    private final SchedService schedService;
+
     @PostConstruct
     public void Init() throws Exception{
 
+        schedService.scheduleJob();
+
+        schedService.Start();
 //        SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_GLOBAL);
         log.info("Test");
 //        ObjectMapper mapper = new ObjectMapper();
