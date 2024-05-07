@@ -12,6 +12,7 @@ import com.study.backend.repository.ManagerRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.quartz.Scheduler;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
@@ -32,6 +33,8 @@ public class AppStart {
 
 //        SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_GLOBAL);
         log.info("Test");
+
+
 //        ObjectMapper mapper = new ObjectMapper();
 //        List<Employee> employeeList = employeeRepository.getEmployees();
 //        employeeList.stream().map(Employee::toString).forEach(e -> log.info("\033[1;32m Value:\033[0m \033[0;36m{}\033[0m", e));
