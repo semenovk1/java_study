@@ -30,8 +30,8 @@ public class SchedulerService {
         JobKey key = jobDetail.getKey();
 
         Trigger trigger = TriggerBuilder.newTrigger()
-                                        .withIdentity(UUID.randomUUID().toString())
-                                        .forJob(key)
+                                        .withIdentity(UUID.randomUUID().toString(), "TEST")
+                                        .forJob(jobDetail)
                                         .withSchedule(SimpleScheduleBuilder.repeatSecondlyForever())
                                         .build();
 

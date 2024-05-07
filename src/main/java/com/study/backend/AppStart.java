@@ -6,6 +6,7 @@ import com.study.backend.dto.FilterFieldDto;
 import com.study.backend.enity.Department;
 import com.study.backend.enity.Employee;
 import com.study.backend.enity.Manager;
+import com.study.backend.quartz.SchedulerService;
 import com.study.backend.repository.DepartmentRepository;
 import com.study.backend.repository.EmployeeRepository;
 import com.study.backend.repository.ManagerRepository;
@@ -28,12 +29,14 @@ public class AppStart {
     private final ManagerRepository managerRepository;
     private final DepartmentRepository departmentRepository;
 
+    private final SchedulerService schedulerService;
     @PostConstruct
     public void Init() throws Exception{
 
 //        SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_GLOBAL);
         log.info("Test");
 
+        schedulerService.startTestJob();
 
 //        ObjectMapper mapper = new ObjectMapper();
 //        List<Employee> employeeList = employeeRepository.getEmployees();
