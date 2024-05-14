@@ -16,7 +16,7 @@ public class SchedulerService {
     Scheduler scheduler;
 
     @PostConstruct
-    void init() throws Exception{
+    void init() throws Exception {
         scheduler.start();
     }
 
@@ -30,9 +30,12 @@ public class SchedulerService {
         JobKey key = jobDetail.getKey();
 
         Trigger trigger = TriggerBuilder.newTrigger()
-                                        .withIdentity(UUID.randomUUID().toString(), "TEST")
+                                        .withIdentity("TEST_TRIGGER", "TEST")
                                         .forJob(jobDetail)
-                                        .withSchedule(SimpleScheduleBuilder.repeatSecondlyForever())
+                                        .withSchedule(SimpleScheduleBuilder.simpleSchedule()
+                                                                           .withIntervalInSeconds(10)
+                                                                           .repeatForever()
+                                                                           .withMisfireHandlingInstructionIgnoreMisfires())
                                         .build();
 
         scheduler.scheduleJob(jobDetail, trigger);
