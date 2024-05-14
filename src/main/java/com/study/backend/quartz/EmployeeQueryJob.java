@@ -16,8 +16,6 @@ import java.util.List;
 
 @Slf4j
 @DisallowConcurrentExecution
-@PersistJobDataAfterExecution
-@Component
 public class EmployeeQueryJob extends QuartzJobBean {
     @Autowired
     EmployeeRepository employeeRepository;
