@@ -1,26 +1,20 @@
 package com.study.backend.repository;
 
-import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.core.types.dsl.LiteralExpression;
-import com.querydsl.core.types.dsl.SimpleExpression;
-import com.querydsl.sql.SQLQuery;
-import com.study.backend.dto.FilterDto;
-import com.study.backend.enity.Employee;
-import com.study.backend.enity.Manager;
 import com.querydsl.core.Tuple;
 import com.querydsl.core.types.MappingProjection;
 import com.querydsl.core.types.Path;
+import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.sql.SQLQuery;
 import com.querydsl.sql.SQLQueryFactory;
-import com.study.backend.filter.FilterHeper;
+import com.study.backend.dto.FilterDto;
+import com.study.backend.enity.Manager;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Stream;
 
 import static com.study.demo.querydsl.entities.QDepartments.departments;
-import static com.study.demo.querydsl.entities.QEmployees.employees;
 import static com.study.demo.querydsl.entities.QManagers.managers;
 
 

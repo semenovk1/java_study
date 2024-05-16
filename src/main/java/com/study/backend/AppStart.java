@@ -29,14 +29,14 @@ public class AppStart {
     private final ManagerRepository managerRepository;
     private final DepartmentRepository departmentRepository;
 
-    private final SchedulerService schedulerService;
+//    private final SchedulerService schedulerService;
     @PostConstruct
     public void Init() throws Exception{
 
 //        SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_GLOBAL);
         log.info("Test");
 
-        schedulerService.startTestJob();
+//        schedulerService.startTestJob();
 
 //        ObjectMapper mapper = new ObjectMapper();
 //        List<Employee> employeeList = employeeRepository.getEmployees();
