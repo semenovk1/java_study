@@ -1,4 +1,8 @@
 package com.study.backend.service;
 
-public class ValidationService {
+import java.util.List;
+
+public interface ValidationService {
+
+    <T> List<ValidationErrorDto> validate(T entity, Class<?>... validationGroups);
 }
