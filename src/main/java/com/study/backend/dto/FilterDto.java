@@ -12,5 +12,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FilterDto {
+
     List<FilterFieldDto> fields;
 }

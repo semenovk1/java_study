@@ -32,11 +32,13 @@ public class ValidationoConfig {
 
     public static void mapConstraints(ConstraintMapping constraintMapping) {
 
+
         constraintMapping
             .type(Employee.class)
             .field(Employee.Fields.name)
             .constraint(new NotNullDef())
             .field(Employee.Fields.salary)
+            .constraint(new NotNullDef())
             .constraint(new MinDef().value(0L))
 
             .type(Manager.class)

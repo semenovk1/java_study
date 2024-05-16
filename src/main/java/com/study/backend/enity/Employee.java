@@ -1,5 +1,6 @@
 package com.study.backend.enity;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -31,6 +32,7 @@ import java.time.LocalDateTime;
 public class Employee {
 
     private Long id;
+
     private String name;
     private String lastname;
     private Double salary;

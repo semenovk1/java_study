@@ -10,6 +10,7 @@ import com.study.backend.quartz.SchedulerService;
 import com.study.backend.repository.DepartmentRepository;
 import com.study.backend.repository.EmployeeRepository;
 import com.study.backend.repository.ManagerRepository;
+import com.study.backend.service.EmployeeService;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,11 +30,16 @@ public class AppStart {
     private final ManagerRepository managerRepository;
     private final DepartmentRepository departmentRepository;
 
+    private final EmployeeService employeeService;
+
 //    private final SchedulerService schedulerService;
     @PostConstruct
     public void Init() throws Exception{
 
 //        SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_GLOBAL);
+
+        employeeService.addEmploee(Employee.builder().name("Ivan").salary(-100D).build());
+
         log.info("Test");
 
 //        schedulerService.startTestJob();
