@@ -4,6 +4,8 @@ import org.quartz.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 @Component
@@ -16,8 +18,13 @@ public class SchedService {
     }
 
     public void scheduleJob() throws Exception {
+
+
         JobDetail jobDetail;
         JobBuilder jobBuilder = JobBuilder.newJob(TestJob.class);
+        Map<String, String> dataMap = new HashMap<>();
+        dataMap.put("Param", "ParamValue");
+        jobBuilder.setJobData(new JobDataMap(dataMap));
 
         jobBuilder.withIdentity(UUID.randomUUID().toString());
         jobDetail = jobBuilder.build();
@@ -25,7 +32,7 @@ public class SchedService {
         JobKey key = jobDetail.getKey();
 
         Trigger trigger =   TriggerBuilder.newTrigger()
-                                                                                 .withIdentity(UUID.randomUUID().toString(), "TEST")
+                                                                                 .withIdentity("TEST", "TEST")
                                                                                  .withSchedule(SimpleScheduleBuilder.repeatSecondlyForever())
                                                                                  .forJob(jobDetail.getKey())
                                                                                  .build();

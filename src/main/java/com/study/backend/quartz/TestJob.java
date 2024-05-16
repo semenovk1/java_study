@@ -18,5 +18,9 @@ public class TestJob extends QuartzJobBean {
     @Override
     protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
         log.info("Job is running");
+        context.getJobDetail().getJobDataMap().forEach((k,v) -> {
+            log.info("JobData: {} = {}", k,v);
+        });
+
     }
 }

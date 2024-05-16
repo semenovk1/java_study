@@ -11,6 +11,7 @@ import com.study.backend.quartz.TestJob;
 import com.study.backend.repository.DepartmentRepository;
 import com.study.backend.repository.EmployeeRepository;
 import com.study.backend.repository.ManagerRepository;
+import com.study.backend.service.EmployeeService;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,15 +31,20 @@ public class AppStart {
     private final DepartmentRepository departmentRepository;
 
     private final SchedService schedService;
+    private final EmployeeService employeeService;
 
     @PostConstruct
     public void Init() throws Exception{
 
-        schedService.scheduleJob();
+//        schedService.scheduleJob();
 
-        schedService.Start();
+//        schedService.Start();
 //        SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_GLOBAL);
         log.info("Test");
+
+        Employee newEmployee = Employee.builder().build();
+        employeeService.addEmployee(newEmployee);
+
 //        ObjectMapper mapper = new ObjectMapper();
 //        List<Employee> employeeList = employeeRepository.getEmployees();
 //        employeeList.stream().map(Employee::toString).forEach(e -> log.info("\033[1;32m Value:\033[0m \033[0;36m{}\033[0m", e));
