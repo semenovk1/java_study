@@ -5,6 +5,7 @@ import com.study.backend.enity.Manager;
 import org.hibernate.validator.HibernateValidatorConfiguration;
 import org.hibernate.validator.cfg.ConstraintMapping;
 import org.hibernate.validator.cfg.defs.MinDef;
+import org.hibernate.validator.cfg.defs.NotBlankDef;
 import org.hibernate.validator.cfg.defs.NotNullDef;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -44,6 +45,7 @@ public class ValidationoConfig {
             .type(Manager.class)
             .field(Manager.Fields.name)
             .constraint(new NotNullDef())
+            .constraint(new NotBlankDef())
 
         ;
 
