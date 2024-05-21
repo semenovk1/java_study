@@ -42,10 +42,16 @@ public class FilterHeper {
 
     static public <T> List<T> getByFilter(SQLQuery<T> q , Map<String, FiledDescriptor<?>> fieldDescriptorMap,  FilterDto filter) throws Exception {
 
+        return makeFilterQuery(q, fieldDescriptorMap, filter).fetch();
+    }
+
+
+    static public <T> SQLQuery<T> makeFilterQuery(SQLQuery<T> q , Map<String, FiledDescriptor<?>> fieldDescriptorMap,  FilterDto filter) throws Exception {
+
         for (FilterFieldDto field : filter.getFields()) {
             q.where(getExpression(fieldDescriptorMap.get(field.getName()), field.getPredicate(), field.getValue()));
         }
 
-        return q.fetch();
+        return q;
     }
 }
