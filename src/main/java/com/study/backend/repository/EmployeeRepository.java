@@ -13,6 +13,7 @@ import com.study.backend.enity.Employee;
 import com.study.backend.enity.descriptors.EmployeeDescriptor;
 import com.study.backend.enity.descriptors.FiledDescriptor;
 import com.study.backend.filter.FilterHeper;
+import com.study.backend.patterns.factory.PrinterFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,7 +38,7 @@ public class EmployeeRepository {
 
         this.queryFactory = queryFactory;
 
-//         проекция без доп. поля manager
+        //         проекция без доп. поля manager
         projectionNoJoins = new MappingProjection<>(Employee.class, employees.all()) {
 
             @Override
@@ -77,6 +78,7 @@ public class EmployeeRepository {
             }
         };
     }
+
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
 
@@ -84,6 +86,11 @@ public class EmployeeRepository {
         SQLQuery<Employee> q = queryFactory.query().select(projectionNoJoins).from(employees);
 
         return FilterHeper.getByFilter(q, EmployeeDescriptor.fieldDescriptorMap, filter);
+    }
+
+    protected SQLQuery<Employee> makeFilterQuery(FilterDto filter) throws Exception {
+        SQLQuery<Employee> q = queryFactory.query().select(projectionNoJoins).from(employees);
+        return FilterHeper.makeFilterQuery(q, EmployeeDescriptor.fieldDescriptorMap, filter);
     }
     //
 
@@ -108,10 +115,10 @@ public class EmployeeRepository {
         }
         q.where(se);
 
-        if(salary != null){
-            if(salaryOp < 0)
+        if (salary != null) {
+            if (salaryOp < 0)
                 q.where(employees.mtSalary.lt(salary));
-            else if(salaryOp > 0)
+            else if (salaryOp > 0)
                 q.where(employees.mtSalary.gt(salary));
             else
                 q.where(employees.mtSalary.eq(salary));
@@ -119,13 +126,25 @@ public class EmployeeRepository {
 
 
         return q.fetch();
-    };
+    }
+
+
+
+
+    public  String dumpData(FilterDto filter) throws Exception {
+
+        SQLQuery<Employee> q = queryFactory.query().select(projectionNoJoins).from(employees);
+        q = FilterHeper.makeFilterQuery(q, EmployeeDescriptor.fieldDescriptorMap, filter);
+
+        return PrinterFactory.getDumperFor(Employee.class)
+                                    .dumpData(q);
+    }
 
     public List<Employee> getEmployees() {
 
-         //запрос без поля manager
-//        return queryFactory.from(employees)
-//                           .select(projection).fetch();
+        //запрос без поля manager
+        //        return queryFactory.from(employees)
+        //                           .select(projection).fetch();
 
         return queryFactory.from(employees)
                            .innerJoin(managers)
@@ -133,13 +152,13 @@ public class EmployeeRepository {
                            .select(projection).fetch();
     }
 
-        public List<Employee> getByName(String name) {
+    public List<Employee> getByName(String name) {
 
         // запрос без поля manager
-//        return queryFactory.from(employees)
-//                           .where(employees.dsName.eq(name))
-//                           .select(projection)
-//                           .fetch();
+        //        return queryFactory.from(employees)
+        //                           .where(employees.dsName.eq(name))
+        //                           .select(projection)
+        //                           .fetch();
 
         return queryFactory.from(employees)
                            .innerJoin(managers)
