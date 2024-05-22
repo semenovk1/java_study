@@ -7,7 +7,13 @@ import java.util.List;
 
 public class ManagerRepository {
 
+    private Manager getRandom(){
+        int index = (int)Math.floor(Math.random()*1000);
+        return Manager.builder().id((long)index).name(String.format("Manager_%d", index)).build();
+
+    }
+
     public List<Manager> getAllManagers(){
-        return List.of();
+        return DataGenerator.generate(100, this::getRandom);
     }
 }
